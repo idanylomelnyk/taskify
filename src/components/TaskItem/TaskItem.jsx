@@ -11,7 +11,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
 
-export default function TaskItem({ title, description }) {
+export default function TaskItem({ id, title, description, setTasks }) {
+  const deleteTask = (id) => {
+    setTasks((prev) => {
+      return prev.filter((task) => task.id !== id);
+    });
+  };
+
   return (
     <ListItem sx={{ maxWidth: "350px", p: 1 }}>
       <Card
@@ -51,7 +57,11 @@ export default function TaskItem({ title, description }) {
             <IconButton>
               <EditIcon />
             </IconButton>
-            <IconButton>
+            <IconButton
+              onClick={() => {
+                deleteTask(id);
+              }}
+            >
               <DeleteIcon />
             </IconButton>
           </Box>

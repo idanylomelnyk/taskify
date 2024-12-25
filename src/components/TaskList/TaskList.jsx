@@ -1,7 +1,7 @@
 import { List } from "@mui/material";
 import TaskItem from "../TaskItem/TaskItem";
 
-export default function TaskList({ tasks }) {
+export default function TaskList({ tasks, setTasks }) {
   return (
     <List sx={{ display: "flex", flexWrap: "wrap" }}>
       {tasks.map(({ id, title, description, complete }) => (
@@ -11,6 +11,7 @@ export default function TaskList({ tasks }) {
           title={title}
           description={description}
           complete={complete}
+          setTasks={setTasks}
         />
       ))}
     </List>

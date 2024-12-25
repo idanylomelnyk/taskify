@@ -53,7 +53,7 @@ export default function App() {
     <Container>
       <CssBaseline>
         <AddForm setTasks={setTasks} />
-        <TaskList tasks={tasks} />
+        <TaskList tasks={tasks} setTasks={setTasks} />
       </CssBaseline>
     </Container>
   );
