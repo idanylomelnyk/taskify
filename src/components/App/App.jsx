@@ -1,6 +1,7 @@
 import { useState } from "react";
 import TaskList from "../TaskList/TaskList";
 import { Container, CssBaseline } from "@mui/material";
+import AddForm from "../AddForm/AddForm";
 
 export default function App() {
   const [tasks, setTasks] = useState([
@@ -47,9 +48,11 @@ export default function App() {
       complete: false,
     },
   ]);
+
   return (
     <Container>
       <CssBaseline>
+        <AddForm setTasks={setTasks} />
         <TaskList tasks={tasks} />
       </CssBaseline>
     </Container>

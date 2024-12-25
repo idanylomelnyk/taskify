@@ -17,10 +17,11 @@ export default function TaskItem({ title, description }) {
       <Card
         variant='outlined'
         sx={{
-          display: "flex",
-          flexDirection: "column",
+          width: "350px",
           height: "260px",
           padding: 1,
+          display: "flex",
+          flexDirection: "column",
         }}
       >
         <Box
