@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { Container, CssBaseline, Stack } from "@mui/material";
 import TaskList from "../TaskList/TaskList";
-import { Container, CssBaseline } from "@mui/material";
 import AddForm from "../AddForm/AddForm";
+import SearchForm from "../SearchForm/SearchForm";
 
 export default function App() {
   const [tasks, setTasks] = useState([
@@ -48,13 +49,27 @@ export default function App() {
       complete: false,
     },
   ]);
+  const [query, setQuery] = useState("");
+
+  const filteredTasks = () => {
+    if (!query) return tasks;
+
+    return tasks.filter(
+      (task) =>
+        task.description.toLowerCase().includes(query.toLowerCase()) ||
+        task.title.toLowerCase().includes(query.toLowerCase())
+    );
+  };
 
   return (
-    <Container>
-      <CssBaseline>
-        <AddForm setTasks={setTasks} />
-        <TaskList tasks={tasks} setTasks={setTasks} />
-      </CssBaseline>
-    </Container>
+    <CssBaseline>
+      <Container>
+        <Stack direction='row' sx={{ justifyContent: "space-between" }}>
+          <AddForm setTasks={setTasks} />
+          <SearchForm query={query} setQuery={setQuery} />
+        </Stack>
+        <TaskList tasks={filteredTasks()} setTasks={setTasks} />
+      </Container>
+    </CssBaseline>
   );
 }
