@@ -2,6 +2,7 @@ import { Box, Button, TextField } from "@mui/material";
 import TaskList from "../components/TaskList/TaskList";
 import { useState } from "react";
 import { nanoid } from "nanoid";
+import NewTaskForm from "../components/NewTaskForm/NewTaskForm";
 
 export default function HomePage() {
   const [tasks, setTasks] = useState([
@@ -89,6 +90,10 @@ export default function HomePage() {
     },
   ]);
 
+  const [openNewTaskModal, setOpenNewTaskModal] = useState(false);
+  const handleOpenNewTaskModal = () => setOpenNewTaskModal(true);
+  const handleCloseNewTaskModal = () => setOpenNewTaskModal(false);
+
   return (
     <Box component='main' sx={{ padding: "24px 0" }}>
       <Box
@@ -97,9 +102,20 @@ export default function HomePage() {
           justifyContent: "space-between",
         }}
       >
-        <Button variant='contained'>New task</Button>
+        <Button
+          aria-label='open-new-task-form'
+          variant='contained'
+          onClick={handleOpenNewTaskModal}
+        >
+          New task
+        </Button>
         <TextField variant='standard' label='Search'></TextField>
       </Box>
+      <NewTaskForm
+        open={openNewTaskModal}
+        onClose={handleCloseNewTaskModal}
+        setTasks={setTasks}
+      />
       <TaskList tasks={tasks} />
     </Box>
   );
