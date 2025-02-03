@@ -1,8 +1,9 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import TaskList from "../components/TaskList/TaskList";
 import { useState } from "react";
 import { nanoid } from "nanoid";
 import NewTaskForm from "../components/NewTaskForm/NewTaskForm";
+import NoTasksNotice from "../components/NoTasksNotice/NoTasksNotice";
 
 export default function HomePage() {
   const [tasks, setTasks] = useState([
@@ -116,7 +117,11 @@ export default function HomePage() {
         onClose={handleCloseNewTaskModal}
         setTasks={setTasks}
       />
-      <TaskList tasks={tasks} />
+      {tasks.length === 0 ? (
+        <NoTasksNotice />
+      ) : (
+        <TaskList tasks={tasks} setTasks={setTasks} />
+      )}
     </Box>
   );
 }

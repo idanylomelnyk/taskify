@@ -1,7 +1,13 @@
 import { Card, ListItem, Typography } from "@mui/material";
 import TaskActionsButton from "../TaskActionsButton/TaskActionsButton";
 
-export default function TaskItem({ title, description, bgColor }) {
+export default function TaskItem({
+  id,
+  title,
+  description,
+  bgColor,
+  setTasks,
+}) {
   return (
     <ListItem
       disablePadding
@@ -22,7 +28,7 @@ export default function TaskItem({ title, description, bgColor }) {
           "&:hover .moreVert": { opacity: 1 },
         }}
       >
-        <TaskActionsButton />
+        <TaskActionsButton id={id} setTasks={setTasks} />
         <Typography sx={{ fontWeight: 700 }}>{title}</Typography>
         <Typography
           sx={{

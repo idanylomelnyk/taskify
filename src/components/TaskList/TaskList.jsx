@@ -1,7 +1,7 @@
 import { List } from "@mui/material";
 import TaskItem from "../TaskItem/TaskItem";
 
-export default function TaskList({ tasks }) {
+export default function TaskList({ tasks, setTasks }) {
   return (
     <List
       disablePadding
@@ -10,9 +10,11 @@ export default function TaskList({ tasks }) {
       {tasks.map(({ id, title, description, bgColor }) => (
         <TaskItem
           key={id}
+          id={id}
           title={title}
           description={description}
           bgColor={bgColor}
+          setTasks={setTasks}
         />
       ))}
     </List>

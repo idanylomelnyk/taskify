@@ -2,7 +2,7 @@ import { IconButton, Menu, MenuItem } from "@mui/material";
 import { MoreVertRounded } from "@mui/icons-material";
 import { useState } from "react";
 
-export default function TaskActionsButton() {
+export default function TaskActionsButton({ id, setTasks }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleOpen = (event) => {
@@ -10,6 +10,12 @@ export default function TaskActionsButton() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const deleteItem = () => {
+    setTasks((prev) => {
+      return prev.filter((task) => task.id !== id);
+    });
   };
 
   return (
@@ -44,7 +50,7 @@ export default function TaskActionsButton() {
       >
         <MenuItem>Edit</MenuItem>
         <MenuItem>Done</MenuItem>
-        <MenuItem>Delete</MenuItem>
+        <MenuItem onClick={deleteItem}>Delete</MenuItem>
       </Menu>
     </>
   );
