@@ -7,12 +7,13 @@ export default function TaskList({ tasks, setTasks }) {
       disablePadding
       sx={{ mt: 4, display: "flex", gap: 2, flexWrap: "wrap" }}
     >
-      {tasks.map(({ id, title, description, bgColor }) => (
+      {tasks.map(({ id, title, description, complete, bgColor }) => (
         <TaskItem
           key={id}
           id={id}
           title={title}
           description={description}
+          complete={complete}
           bgColor={bgColor}
           setTasks={setTasks}
         />

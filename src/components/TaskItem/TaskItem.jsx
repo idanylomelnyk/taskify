@@ -5,6 +5,7 @@ export default function TaskItem({
   id,
   title,
   description,
+  complete,
   bgColor,
   setTasks,
 }) {
@@ -28,8 +29,16 @@ export default function TaskItem({
           "&:hover .moreVert": { opacity: 1 },
         }}
       >
-        <TaskActionsButton id={id} setTasks={setTasks} />
-        <Typography sx={{ fontWeight: 700 }}>{title}</Typography>
+        <TaskActionsButton id={id} complete={complete} setTasks={setTasks} />
+        <Typography
+          sx={{
+            fontWeight: 700,
+            color: complete ? "#bdbdbd" : "#000",
+            textDecoration: complete ? "line-through" : "none",
+          }}
+        >
+          {title}
+        </Typography>
         <Typography
           sx={{
             mt: 1,
@@ -37,6 +46,8 @@ export default function TaskItem({
             WebkitBoxOrient: "vertical",
             WebkitLineClamp: 3,
             overflow: "hidden",
+            color: complete ? "#bdbdbd" : "#000",
+            textDecoration: complete ? "line-through" : "none",
           }}
         >
           {description}

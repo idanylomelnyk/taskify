@@ -1,8 +1,12 @@
-import { IconButton, Menu, MenuItem } from "@mui/material";
-import { MoreVertRounded } from "@mui/icons-material";
 import { useState } from "react";
+import { IconButton, Menu, MenuItem, Fade } from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import EditIcon from "@mui/icons-material/Edit";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function TaskActionsButton({ id, setTasks }) {
+export default function TaskActionsButton({ id, complete, setTasks }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleOpen = (event) => {
@@ -16,6 +20,16 @@ export default function TaskActionsButton({ id, setTasks }) {
     setTasks((prev) => {
       return prev.filter((task) => task.id !== id);
     });
+  };
+
+  const toggleTask = (bool) => {
+    setTasks((prev) => {
+      return prev.map((task) =>
+        task.id === id ? { ...task, complete: bool } : task
+      );
+    });
+
+    handleClose();
   };
 
   return (
@@ -33,7 +47,7 @@ export default function TaskActionsButton({ id, setTasks }) {
         }}
         onClick={handleOpen}
       >
-        <MoreVertRounded />
+        <MoreVertIcon />
       </IconButton>
       <Menu
         open={open}
@@ -47,10 +61,41 @@ export default function TaskActionsButton({ id, setTasks }) {
           vertical: "top",
           horizontal: "left",
         }}
+        TransitionComponent={Fade}
+        transitionDuration={500}
       >
-        <MenuItem>Edit</MenuItem>
-        <MenuItem>Done</MenuItem>
-        <MenuItem onClick={deleteItem}>Delete</MenuItem>
+        <MenuItem sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+          <EditIcon sx={{ width: "20px", color: "#757575" }} />
+          Edit
+        </MenuItem>
+        {complete ? (
+          <MenuItem
+            sx={{ display: "flex", gap: 1, alignItems: "center" }}
+            onClick={() => {
+              toggleTask(false);
+            }}
+          >
+            <DoNotDisturbAltIcon sx={{ width: "20px", color: "#757575" }} />
+            Undone
+          </MenuItem>
+        ) : (
+          <MenuItem
+            sx={{ display: "flex", gap: 1, alignItems: "center" }}
+            onClick={() => {
+              toggleTask(true);
+            }}
+          >
+            <CheckBoxIcon sx={{ width: "20px", color: "#757575" }} />
+            Done
+          </MenuItem>
+        )}
+        <MenuItem
+          sx={{ display: "flex", gap: 1, alignItems: "center" }}
+          onClick={deleteItem}
+        >
+          <DeleteIcon sx={{ width: "20px", color: "#757575" }} />
+          Delete
+        </MenuItem>
       </Menu>
     </>
   );
