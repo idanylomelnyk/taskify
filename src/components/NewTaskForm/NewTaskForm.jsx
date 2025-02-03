@@ -6,10 +6,14 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import { nanoid } from "nanoid";
+import CloseIcon from "@mui/icons-material/Close";
+import ColorPicker from "../ColorPicker/ColorPicker";
+import { useState } from "react";
 
 export default function NewTaskForm({ open, onClose, setTasks }) {
+  const [bgColor, setBgColor] = useState("#ffffff");
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -21,6 +25,7 @@ export default function NewTaskForm({ open, onClose, setTasks }) {
           title: e.target.elements.title.value,
           description: e.target.elements.description.value,
           complete: false,
+          bgColor: bgColor,
         },
       ];
     });
@@ -34,7 +39,12 @@ export default function NewTaskForm({ open, onClose, setTasks }) {
       <Dialog open={open} onClose={onClose}>
         <Box
           component='form'
-          sx={{ width: 400, position: "relative", padding: 3 }}
+          sx={{
+            width: 400,
+            position: "relative",
+            padding: 3,
+            bgcolor: bgColor,
+          }}
           onSubmit={handleSubmit}
         >
           <Typography sx={{ fontSize: "20px", fontWeight: 500 }}>
@@ -50,7 +60,7 @@ export default function NewTaskForm({ open, onClose, setTasks }) {
             label='Title'
             name='title'
             variant='outlined'
-            sx={{ mt: 2, width: "100%" }}
+            sx={{ mt: 2, width: "100%", bgcolor: "#fff" }}
           ></TextField>
           <TextField
             label='Description'
@@ -58,8 +68,9 @@ export default function NewTaskForm({ open, onClose, setTasks }) {
             variant='outlined'
             multiline
             rows={4}
-            sx={{ mt: 2, width: "100%" }}
+            sx={{ mt: 2, width: "100%", bgcolor: "#fff" }}
           ></TextField>
+          <ColorPicker setBgColor={setBgColor} />
           <Button
             type='submit'
             variant='contained'

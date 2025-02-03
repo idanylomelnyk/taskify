@@ -1,7 +1,7 @@
 import { Card, ListItem, Typography } from "@mui/material";
 import TaskActionsButton from "../TaskActionsButton/TaskActionsButton";
 
-export default function TaskItem({ title, description }) {
+export default function TaskItem({ title, description, bgColor }) {
   return (
     <ListItem
       disablePadding
@@ -12,6 +12,7 @@ export default function TaskItem({ title, description }) {
         sx={{
           width: "calc(1587px/5)",
           height: 140,
+          bgcolor: bgColor,
           padding: 2,
           cursor: "default",
 
