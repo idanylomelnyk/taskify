@@ -1,5 +1,7 @@
 import { Card, ListItem, Typography } from "@mui/material";
 import TaskActionsButton from "../TaskActionsButton/TaskActionsButton";
+import TaskModal from "../TaskModal/TaskModal";
+import { useState } from "react";
 
 export default function TaskItem({
   id,
@@ -9,12 +11,17 @@ export default function TaskItem({
   bgColor,
   setTasks,
 }) {
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
+
   return (
     <ListItem
       disablePadding
       sx={{ position: "relative", flexBasis: "calc(1587px/5)" }}
     >
       <Card
+        onClick={handleOpenModal}
         variant='outlined'
         sx={{
           width: "calc(1587px/5)",
@@ -53,6 +60,16 @@ export default function TaskItem({
           {description}
         </Typography>
       </Card>
+      <TaskModal
+        id={id}
+        title={title}
+        description={description}
+        bgColor={bgColor}
+        complete={complete}
+        setTasks={setTasks}
+        open={openModal}
+        onClose={handleCloseModal}
+      />
     </ListItem>
   );
 }

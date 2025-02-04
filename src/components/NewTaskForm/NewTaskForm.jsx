@@ -9,11 +9,14 @@ import {
 import { nanoid } from "nanoid";
 import CloseIcon from "@mui/icons-material/Close";
 import ColorPicker from "../ColorPicker/ColorPicker";
-import { useState } from "react";
 
-export default function NewTaskForm({ open, onClose, setTasks }) {
-  const [bgColor, setBgColor] = useState("#ffffff");
-
+export default function NewTaskForm({
+  open,
+  onClose,
+  setTasks,
+  bgColorSelected,
+  setBgColorSelected,
+}) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -25,7 +28,7 @@ export default function NewTaskForm({ open, onClose, setTasks }) {
           title: e.target.elements.title.value,
           description: e.target.elements.description.value,
           complete: false,
-          bgColor: bgColor,
+          bgColor: bgColorSelected,
         },
       ];
     });
@@ -43,7 +46,7 @@ export default function NewTaskForm({ open, onClose, setTasks }) {
             width: 400,
             position: "relative",
             padding: 3,
-            bgcolor: bgColor,
+            bgcolor: bgColorSelected,
           }}
           onSubmit={handleSubmit}
         >
@@ -68,9 +71,9 @@ export default function NewTaskForm({ open, onClose, setTasks }) {
             variant='outlined'
             multiline
             rows={4}
-            sx={{ mt: 2, width: "100%", bgcolor: "#fff" }}
+            sx={{ mt: 2, mb: 2, width: "100%", bgcolor: "#fff" }}
           ></TextField>
-          <ColorPicker setBgColor={setBgColor} />
+          <ColorPicker setBgColorSelected={setBgColorSelected} />
           <Button
             type='submit'
             variant='contained'

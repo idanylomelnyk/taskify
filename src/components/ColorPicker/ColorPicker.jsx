@@ -1,29 +1,25 @@
 import { Box, IconButton, List, ListItem } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
 
-export default function ColorPicker({ setBgColor }) {
+export default function ColorPicker({ setBgColorSelected }) {
   const COLORS = ["#fff", "#fffde7", "#e0f2f1", "#e3f2fd", "#ffebee"];
 
   const colorSelected = (e) => {
     const listItem = e.target.closest("li");
     if (!listItem) return;
 
-    setBgColor(listItem.dataset.color);
+    setBgColorSelected(listItem.dataset.color);
   };
 
   return (
     <>
-      <Box
-        sx={{
-          mt: 2,
-        }}
-      >
+      <Box>
         <List
           disablePadding
           sx={{
             display: "flex",
             alignItems: "center",
-            gap: 2,
+            gap: 1,
           }}
           onClick={colorSelected}
         >
@@ -32,7 +28,7 @@ export default function ColorPicker({ setBgColor }) {
               <ListItem
                 key={color}
                 disablePadding
-                sx={{ maxWidth: "26px" }}
+                sx={{ width: "25px" }}
                 data-color={color}
               >
                 <IconButton

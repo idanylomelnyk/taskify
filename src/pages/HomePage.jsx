@@ -92,8 +92,13 @@ export default function HomePage() {
   ]);
 
   const [openNewTaskModal, setOpenNewTaskModal] = useState(false);
+  const [bgColorSelected, setBgColorSelected] = useState("#fff");
+
   const handleOpenNewTaskModal = () => setOpenNewTaskModal(true);
-  const handleCloseNewTaskModal = () => setOpenNewTaskModal(false);
+  const handleCloseNewTaskModal = () => {
+    setOpenNewTaskModal(false);
+    setBgColorSelected("#fff");
+  };
 
   return (
     <Box component='main' sx={{ padding: "24px 0" }}>
@@ -116,6 +121,8 @@ export default function HomePage() {
         open={openNewTaskModal}
         onClose={handleCloseNewTaskModal}
         setTasks={setTasks}
+        bgColorSelected={bgColorSelected}
+        setBgColorSelected={setBgColorSelected}
       />
       {tasks.length === 0 ? (
         <NoTasksNotice />
