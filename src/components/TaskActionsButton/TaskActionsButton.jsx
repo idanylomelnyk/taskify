@@ -1,16 +1,24 @@
 import { useState } from "react";
 import { IconButton, Menu, MenuItem, Fade } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import EditIcon from "@mui/icons-material/Edit";
-import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import DoneOutlineOutlinedIcon from "@mui/icons-material/DoneOutlineOutlined";
 import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
-import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
-export default function TaskActionsButton({ id, complete, setTasks }) {
+export default function TaskActionsButton({
+  id,
+  complete,
+  setTasks,
+  setIsTaskEditing,
+  editingTask,
+  isTaskEditing,
+}) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleOpen = (event) => {
     setAnchorEl(event.currentTarget);
+    event.stopPropagation();
   };
   const handleClose = () => {
     setAnchorEl(null);
@@ -32,6 +40,12 @@ export default function TaskActionsButton({ id, complete, setTasks }) {
     handleClose();
   };
 
+  const handleEdit = () => {
+    setIsTaskEditing(true);
+    editingTask();
+    handleClose();
+  };
+
   return (
     <>
       <IconButton
@@ -39,6 +53,7 @@ export default function TaskActionsButton({ id, complete, setTasks }) {
         className='moreVert'
         size='small'
         sx={{
+          display: isTaskEditing ? "none" : "flex",
           position: "absolute",
           top: 8,
           right: 8,
@@ -63,9 +78,16 @@ export default function TaskActionsButton({ id, complete, setTasks }) {
         }}
         TransitionComponent={Fade}
         transitionDuration={500}
+        onClick={(e) => {
+          if (!e.target.closest("[data-action='edit']")) e.stopPropagation();
+        }}
       >
-        <MenuItem sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-          <EditIcon sx={{ width: "20px", color: "#757575" }} />
+        <MenuItem
+          data-action='edit'
+          sx={{ display: "flex", gap: 1, alignItems: "center" }}
+          onClick={handleEdit}
+        >
+          <EditOutlinedIcon sx={{ width: "22px", color: "#757575" }} />
           Edit
         </MenuItem>
         {complete ? (
@@ -75,7 +97,7 @@ export default function TaskActionsButton({ id, complete, setTasks }) {
               toggleTask(false);
             }}
           >
-            <DoNotDisturbAltIcon sx={{ width: "20px", color: "#757575" }} />
+            <DoNotDisturbAltIcon sx={{ width: "22px", color: "#757575" }} />
             Undone
           </MenuItem>
         ) : (
@@ -85,7 +107,7 @@ export default function TaskActionsButton({ id, complete, setTasks }) {
               toggleTask(true);
             }}
           >
-            <CheckBoxIcon sx={{ width: "20px", color: "#757575" }} />
+            <DoneOutlineOutlinedIcon sx={{ width: "22px", color: "#757575" }} />
             Done
           </MenuItem>
         )}
@@ -93,7 +115,7 @@ export default function TaskActionsButton({ id, complete, setTasks }) {
           sx={{ display: "flex", gap: 1, alignItems: "center" }}
           onClick={deleteItem}
         >
-          <DeleteIcon sx={{ width: "20px", color: "#757575" }} />
+          <DeleteOutlineIcon sx={{ width: "22px", color: "#757575" }} />
           Delete
         </MenuItem>
       </Menu>

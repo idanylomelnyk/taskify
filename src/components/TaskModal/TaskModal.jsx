@@ -1,4 +1,12 @@
-import { Dialog, Card, Typography, Divider, Box, Button } from "@mui/material";
+import {
+  Dialog,
+  Card,
+  Typography,
+  Divider,
+  Box,
+  Button,
+  TextField,
+} from "@mui/material";
 import TaskActionsButton from "../TaskActionsButton/TaskActionsButton";
 import ColorPicker from "../ColorPicker/ColorPicker";
 
@@ -11,6 +19,11 @@ export default function TaskModal({
   setTasks,
   open,
   onClose,
+  isTaskEditing,
+  setIsTaskEditing,
+  editTaskText,
+  setEditTaskText,
+  editingTask,
 }) {
   const handleChangeBgColor = (color) => {
     setTasks((prev) => {
@@ -18,6 +31,26 @@ export default function TaskModal({
         task.id === id ? { ...task, bgColor: color } : task
       );
     });
+  };
+
+  const saveEditedTask = () => {
+    setTasks((prev) => {
+      return prev.map((task) =>
+        task.id === id
+          ? {
+              ...task,
+              title: editTaskText.title,
+              description: editTaskText.description,
+            }
+          : task
+      );
+    });
+
+    setIsTaskEditing(false);
+  };
+
+  const cancelEditedTask = () => {
+    setIsTaskEditing(false);
   };
 
   return (
@@ -38,30 +71,71 @@ export default function TaskModal({
             "&:hover .moreVert": { opacity: 1 },
           }}
         >
-          <TaskActionsButton id={id} complete={complete} setTasks={setTasks} />
-          <Typography
-            sx={{
-              fontWeight: 700,
-              color: complete ? "#bdbdbd" : "#000",
-              textDecoration: complete ? "line-through" : "none",
-            }}
-          >
-            {title.length === 0 ? "Title" : title}
-          </Typography>
-          <Typography
-            sx={{
-              minHeight: "70px",
-              mt: 1,
-              display: "-webkit-box",
-              WebkitBoxOrient: "vertical",
-              WebkitLineClamp: 3,
-              overflow: "hidden",
-              color: complete ? "#bdbdbd" : "#000",
-              textDecoration: complete ? "line-through" : "none",
-            }}
-          >
-            {title.length === 0 ? "Description" : description}
-          </Typography>
+          <TaskActionsButton
+            id={id}
+            complete={complete}
+            setTasks={setTasks}
+            isTaskEditing={isTaskEditing}
+            setIsTaskEditing={setIsTaskEditing}
+            editingTask={editingTask}
+          />
+          {isTaskEditing ? (
+            <TextField
+              autoFocus
+              variant='filled'
+              value={editTaskText.title}
+              onChange={(e) => {
+                setEditTaskText({ ...editTaskText, title: e.target.value });
+              }}
+              slotProps={{
+                input: { sx: { fontWeight: 700, height: "none" } },
+              }}
+              sx={{
+                "& .MuiInputBase-input": { padding: 0 },
+              }}
+            ></TextField>
+          ) : (
+            <Typography
+              sx={{
+                fontWeight: 700,
+                color: complete ? "#bdbdbd" : "#000",
+                textDecoration: complete ? "line-through" : "none",
+              }}
+            >
+              {title.length === 0 ? "Title" : title}
+            </Typography>
+          )}
+          {isTaskEditing ? (
+            <TextField
+              variant='filled'
+              value={editTaskText.description}
+              onChange={(e) =>
+                setEditTaskText({
+                  ...editTaskText,
+                  description: e.target.value,
+                })
+              }
+              multiline
+              rows={3}
+              sx={{
+                mt: 1,
+                width: "100%",
+
+                "& .MuiInputBase-root": { padding: 0, lineHeight: 1.5 },
+              }}
+            ></TextField>
+          ) : (
+            <Typography
+              sx={{
+                minHeight: "70px",
+                mt: 1,
+                color: complete ? "#bdbdbd" : "#000",
+                textDecoration: complete ? "line-through" : "none",
+              }}
+            >
+              {title.length === 0 ? "Description" : description}
+            </Typography>
+          )}
           <Divider
             sx={{
               mt: 2,
@@ -77,8 +151,13 @@ export default function TaskModal({
           >
             <ColorPicker setBgColorSelected={handleChangeBgColor} />
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Button>Save</Button>
-              <Button>Close</Button>
+              {isTaskEditing && (
+                <Box>
+                  <Button onClick={cancelEditedTask}>Cancel</Button>
+                  <Button onClick={saveEditedTask}>Save</Button>
+                </Box>
+              )}
+              {!isTaskEditing && <Button onClick={onClose}>Close</Button>}
             </Box>
           </Box>
         </Card>

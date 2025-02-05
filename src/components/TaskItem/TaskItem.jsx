@@ -13,7 +13,20 @@ export default function TaskItem({
 }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
-  const handleCloseModal = () => setOpenModal(false);
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setIsTaskEditing(false);
+  };
+
+  const [isTaskEditing, setIsTaskEditing] = useState(false);
+  const [editTaskText, setEditTaskText] = useState({
+    title: "",
+    description: "",
+  });
+
+  const editingTask = () => {
+    setEditTaskText({ title, description });
+  };
 
   return (
     <ListItem
@@ -36,7 +49,14 @@ export default function TaskItem({
           "&:hover .moreVert": { opacity: 1 },
         }}
       >
-        <TaskActionsButton id={id} complete={complete} setTasks={setTasks} />
+        <TaskActionsButton
+          id={id}
+          complete={complete}
+          setTasks={setTasks}
+          isTaskEditing={isTaskEditing}
+          setIsTaskEditing={setIsTaskEditing}
+          editingTask={editingTask}
+        />
         <Typography
           sx={{
             fontWeight: 700,
@@ -69,6 +89,11 @@ export default function TaskItem({
         setTasks={setTasks}
         open={openModal}
         onClose={handleCloseModal}
+        isTaskEditing={isTaskEditing}
+        setIsTaskEditing={setIsTaskEditing}
+        editTaskText={editTaskText}
+        setEditTaskText={setEditTaskText}
+        editingTask={editingTask}
       />
     </ListItem>
   );
