@@ -54,7 +54,7 @@ export default function HomePage({ tasks, setTasks, setTaskInTrash }) {
         setBgColorSelected={setBgColorSelected}
       />
       {tasks.length === 0 ? (
-        <NoTasksNotice />
+        <NoTasksNotice message='Congrats! Your task list is empty. Create a new task to begin 👍' />
       ) : (
         <TaskList
           tasks={filteredTasks()}

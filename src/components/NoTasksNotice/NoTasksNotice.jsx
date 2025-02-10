@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 
-export default function NoTasksNotice() {
+export default function NoTasksNotice({ message }) {
   return (
     <>
       <Typography
@@ -12,7 +12,7 @@ export default function NoTasksNotice() {
           color: "#757575",
         }}
       >
-        Congrats! Your task list is empty. Create a new task to begin 👍
+        {message}
       </Typography>
     </>
   );
