@@ -9,10 +9,12 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 export default function TaskActionsButton({
   id,
   complete,
+  tasks,
   setTasks,
   setIsTaskEditing,
   editingTask,
   isTaskEditing,
+  setTaskInTrash,
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -27,6 +29,14 @@ export default function TaskActionsButton({
   const deleteItem = () => {
     setTasks((prev) => {
       return prev.filter((task) => task.id !== id);
+    });
+
+    const taskDeleted = tasks.find((t) => t.id === id);
+
+    console.log(taskDeleted);
+
+    setTaskInTrash((prev) => {
+      return [...prev, taskDeleted];
     });
   };
 

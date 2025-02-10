@@ -9,8 +9,9 @@ import {
   Divider,
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import HomeIcon from "@mui/icons-material/Home";
 import Logo from "../Logo/Logo";
+import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 export default function Navigation() {
   return (
@@ -31,9 +32,26 @@ export default function Navigation() {
               >
                 <ListItemButton>
                   <ListItemIcon>
-                    <HomeIcon />
+                    <DashboardOutlinedIcon />
                   </ListItemIcon>
                   <ListItemText primary='Dashboard'></ListItemText>
+                </ListItemButton>
+              </NavLink>
+            </ListItem>
+            <ListItem disablePadding>
+              <NavLink
+                to='/trash'
+                style={{
+                  width: "100%",
+                  color: "#000000de",
+                  textDecoration: "none",
+                }}
+              >
+                <ListItemButton>
+                  <ListItemIcon>
+                    <DeleteOutlineOutlinedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary='Trash'></ListItemText>
                 </ListItemButton>
               </NavLink>
             </ListItem>

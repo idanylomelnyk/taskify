@@ -9,7 +9,9 @@ export default function TaskItem({
   description,
   complete,
   bgColor,
+  tasks,
   setTasks,
+  setTaskInTrash,
 }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
@@ -52,10 +54,12 @@ export default function TaskItem({
         <TaskActionsButton
           id={id}
           complete={complete}
+          tasks={tasks}
           setTasks={setTasks}
           isTaskEditing={isTaskEditing}
           setIsTaskEditing={setIsTaskEditing}
           editingTask={editingTask}
+          setTaskInTrash={setTaskInTrash}
         />
         <Typography
           sx={{

@@ -1,11 +1,10 @@
 import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
+import TaskList from "../../components/TaskList/TaskList";
+import NewTaskForm from "../../components/NewTaskForm/NewTaskForm";
+import NoTasksNotice from "../../components/NoTasksNotice/NoTasksNotice";
 
-import TaskList from "../components/TaskList/TaskList";
-import NewTaskForm from "../components/NewTaskForm/NewTaskForm";
-import NoTasksNotice from "../components/NoTasksNotice/NoTasksNotice";
-
-export default function HomePage({ tasks, setTasks }) {
+export default function HomePage({ tasks, setTasks, setTaskInTrash }) {
   const [openNewTaskModal, setOpenNewTaskModal] = useState(false);
   const handleOpenNewTaskModal = () => setOpenNewTaskModal(true);
   const handleCloseNewTaskModal = () => {
@@ -57,7 +56,11 @@ export default function HomePage({ tasks, setTasks }) {
       {tasks.length === 0 ? (
         <NoTasksNotice />
       ) : (
-        <TaskList tasks={filteredTasks()} setTasks={setTasks} />
+        <TaskList
+          tasks={filteredTasks()}
+          setTasks={setTasks}
+          setTaskInTrash={setTaskInTrash}
+        />
       )}
     </Box>
   );

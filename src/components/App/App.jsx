@@ -1,18 +1,27 @@
-import { Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import { Box, Container, CssBaseline } from "@mui/material";
 import Navigation from "../Navigation/Navigation";
-import HomePage from "../../pages/HomePage";
+import HomePage from "../../pages/HomePage/HomePage";
+import TrashPage from "../../pages/TrashPage/TrashPage";
 
 export default function App() {
   const tasksToState = JSON.parse(localStorage.getItem("tasks")) || [];
+  const tasksInTrashToState =
+    JSON.parse(localStorage.getItem("tasksInTrash")) || [];
 
   const [tasks, setTasks] = useState(tasksToState);
+  const [taskInTrash, setTaskInTrash] = useState(tasksInTrashToState);
 
   useEffect(() => {
     const stateToStorage = JSON.stringify(tasks);
     localStorage.setItem("tasks", stateToStorage);
   }, [tasks]);
+
+  useEffect(() => {
+    const stateToStorage = JSON.stringify(taskInTrash);
+    localStorage.setItem("tasksInTrash", stateToStorage);
+  }, [taskInTrash]);
 
   return (
     <>
@@ -23,7 +32,23 @@ export default function App() {
           <Routes>
             <Route
               path='/'
-              element={<HomePage tasks={tasks} setTasks={setTasks} />}
+              element={
+                <HomePage
+                  tasks={tasks}
+                  setTasks={setTasks}
+                  setTaskInTrash={setTaskInTrash}
+                />
+              }
+            />
+            <Route
+              path='/trash'
+              element={
+                <TrashPage
+                  taskInTrash={taskInTrash}
+                  setTaskInTrash={setTaskInTrash}
+                  setTasks={setTasks}
+                />
+              }
             />
           </Routes>
         </Container>
