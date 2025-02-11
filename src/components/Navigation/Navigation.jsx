@@ -15,8 +15,8 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 
 export default function Navigation() {
   return (
-    <Drawer variant='permanent' sx={{ width: 220 }}>
-      <Box sx={{ width: 220 }}>
+    <Drawer variant='permanent' sx={{ width: 180 }}>
+      <Box sx={{ width: 180 }}>
         <Logo />
         <Divider variant='middle' />
         <Box>

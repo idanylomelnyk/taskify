@@ -1,13 +1,16 @@
 import { Box, Typography } from "@mui/material";
+import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 
 export default function Logo() {
   return (
-    <>
-      <Box sx={{ p: "24px 0" }}>
-        <Typography sx={{ textAlign: "center", fontSize: 24, fontWeight: 700 }}>
+    <Box sx={{ p: 2 }}>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Typography variant='h6' sx={{ textTransform: "uppercase" }}>
           Taskify
         </Typography>
+        <TaskAltOutlinedIcon sx={{ color: "primary.main" }} />
       </Box>
-    </>
+      <Typography variant='caption'>Never forget anything</Typography>
+    </Box>
   );
 }
