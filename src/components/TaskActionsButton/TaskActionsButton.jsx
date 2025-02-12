@@ -32,11 +32,10 @@ export default function TaskActionsButton({
     });
 
     const taskDeleted = tasks.find((t) => t.id === id);
-
-    console.log(taskDeleted);
+    const deleteTime = Date.now() + 1000 * 60 * 60 * 24 * 10;
 
     setTaskInTrash((prev) => {
-      return [...prev, taskDeleted];
+      return [...prev, { ...taskDeleted, deleteAt: deleteTime }];
     });
   };
 

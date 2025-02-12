@@ -23,14 +23,14 @@ export default function TrashPage({ taskInTrash, setTaskInTrash, setTasks }) {
         )}
 
         {taskInTrash.length === 0 ? (
-          <NoTasksNotice message='The task will be automatically deleted after 7 days.' />
+          <NoTasksNotice message='Trash is empty 🗑️' />
         ) : (
           <List
             disablePadding
             sx={{ mt: 4, display: "flex", gap: 2, flexWrap: "wrap" }}
           >
             {taskInTrash.map(
-              ({ id, title, description, complete, bgColor }) => (
+              ({ id, title, description, complete, bgColor, deleteAt }) => (
                 <RemovedTaskItem
                   key={id}
                   id={id}
@@ -41,6 +41,7 @@ export default function TrashPage({ taskInTrash, setTaskInTrash, setTasks }) {
                   taskInTrash={taskInTrash}
                   setTaskInTrash={setTaskInTrash}
                   setTasks={setTasks}
+                  deleteAt={deleteAt}
                 />
               )
             )}

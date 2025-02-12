@@ -1,6 +1,7 @@
 import { Box, Card, IconButton, ListItem, Typography } from "@mui/material";
 import RestoreFromTrashIcon from "@mui/icons-material/RestoreFromTrash";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { useEffect } from "react";
 
 export default function RemovedTaskItem({
   id,
@@ -11,7 +12,25 @@ export default function RemovedTaskItem({
   taskInTrash,
   setTaskInTrash,
   setTasks,
+  deleteAt,
 }) {
+  const daysToAutoDelete = Math.floor(
+    (deleteAt - Date.now()) / 3600 / 1000 / 24
+  );
+
+  useEffect(() => {
+    const intervalTime = 1000 * 60 * 60;
+
+    const intervalId = setInterval(() => {
+      setTaskInTrash((prev) => {
+        return prev.filter((t) => t.deleteAt > Date.now());
+      });
+    }, intervalTime);
+
+    return () => clearInterval(intervalId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const removeTaskForever = () => {
     setTaskInTrash((prev) => {
       return prev.filter((task) => task.id !== id);
@@ -69,6 +88,21 @@ export default function RemovedTaskItem({
             <DeleteForeverIcon />
           </IconButton>
         </Box>
+        <Typography
+          variant='caption'
+          sx={{
+            position: "absolute",
+            top: 8,
+            right: 8,
+            p: "2px 4px",
+            borderRadius: 1,
+            backgroundColor: "#ff7961",
+          }}
+        >
+          {daysToAutoDelete > 1
+            ? `${daysToAutoDelete} days left`
+            : "Delete today"}
+        </Typography>
         <Typography
           sx={{
             fontWeight: 700,
