@@ -41,6 +41,7 @@ export default function TaskModal({
               ...task,
               title: editTaskText.title,
               description: editTaskText.description,
+              complete: editTaskText.title && editTaskText.description,
             }
           : task
       );
@@ -73,6 +74,8 @@ export default function TaskModal({
         >
           <TaskActionsButton
             id={id}
+            title={title}
+            description={description}
             complete={complete}
             setTasks={setTasks}
             isTaskEditing={isTaskEditing}
@@ -102,7 +105,7 @@ export default function TaskModal({
                 textDecoration: complete ? "line-through" : "none",
               }}
             >
-              {title.length === 0 ? "Title" : title}
+              {title}
             </Typography>
           )}
           {isTaskEditing ? (
@@ -133,7 +136,7 @@ export default function TaskModal({
                 textDecoration: complete ? "line-through" : "none",
               }}
             >
-              {title.length === 0 ? "Description" : description}
+              {description}
             </Typography>
           )}
           <Divider

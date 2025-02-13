@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { IconButton, Menu, MenuItem, Fade } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import DoneOutlineOutlinedIcon from "@mui/icons-material/DoneOutlineOutlined";
-import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 export default function TaskActionsButton({
   id,
+  title,
+  description,
   complete,
   tasks,
   setTasks,
@@ -17,6 +15,7 @@ export default function TaskActionsButton({
   setTaskInTrash,
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
+
   const open = Boolean(anchorEl);
   const handleOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -31,11 +30,11 @@ export default function TaskActionsButton({
       return prev.filter((task) => task.id !== id);
     });
 
-    const taskDeleted = tasks.find((t) => t.id === id);
+    const taskDelete = tasks.find((t) => t.id === id);
     const deleteTime = Date.now() + 1000 * 60 * 60 * 24 * 10;
 
     setTaskInTrash((prev) => {
-      return [...prev, { ...taskDeleted, deleteAt: deleteTime }];
+      return [...prev, { ...taskDelete, deleteAt: deleteTime }];
     });
   };
 
@@ -54,6 +53,8 @@ export default function TaskActionsButton({
     editingTask();
     handleClose();
   };
+
+  const itemStyles = { display: "flex", gap: 1, alignItems: "center" };
 
   return (
     <>
@@ -91,40 +92,30 @@ export default function TaskActionsButton({
           if (!e.target.closest("[data-action='edit']")) e.stopPropagation();
         }}
       >
-        <MenuItem
-          data-action='edit'
-          sx={{ display: "flex", gap: 1, alignItems: "center" }}
-          onClick={handleEdit}
-        >
-          <EditOutlinedIcon sx={{ width: "22px", color: "#757575" }} />
+        <MenuItem data-action='edit' sx={itemStyles} onClick={handleEdit}>
           Edit
         </MenuItem>
         {complete ? (
           <MenuItem
-            sx={{ display: "flex", gap: 1, alignItems: "center" }}
+            sx={itemStyles}
             onClick={() => {
               toggleTask(false);
             }}
           >
-            <DoNotDisturbAltIcon sx={{ width: "22px", color: "#757575" }} />
-            Undone
+            Undo
           </MenuItem>
         ) : (
           <MenuItem
-            sx={{ display: "flex", gap: 1, alignItems: "center" }}
+            disabled={!(title || description)}
+            sx={itemStyles}
             onClick={() => {
               toggleTask(true);
             }}
           >
-            <DoneOutlineOutlinedIcon sx={{ width: "22px", color: "#757575" }} />
             Done
           </MenuItem>
         )}
-        <MenuItem
-          sx={{ display: "flex", gap: 1, alignItems: "center" }}
-          onClick={deleteItem}
-        >
-          <DeleteOutlineIcon sx={{ width: "22px", color: "#757575" }} />
+        <MenuItem sx={itemStyles} onClick={deleteItem}>
           Delete
         </MenuItem>
       </Menu>

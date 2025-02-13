@@ -53,6 +53,8 @@ export default function TaskItem({
       >
         <TaskActionsButton
           id={id}
+          title={title}
+          description={description}
           complete={complete}
           tasks={tasks}
           setTasks={setTasks}
