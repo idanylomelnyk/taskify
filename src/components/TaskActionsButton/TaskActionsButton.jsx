@@ -31,10 +31,10 @@ export default function TaskActionsButton({
     });
 
     const taskDelete = tasks.find((t) => t.id === id);
-    const deleteTime = Date.now() + 1000 * 60 * 60 * 24 * 10;
+    const deleteTime = Date.now() + 60000 * 5;
 
     setTaskInTrash((prev) => {
-      return [...prev, { ...taskDelete, deleteAt: deleteTime }];
+      return [{ ...taskDelete, deleteAt: deleteTime }, ...prev];
     });
   };
 

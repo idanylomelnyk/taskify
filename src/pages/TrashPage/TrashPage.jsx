@@ -1,9 +1,10 @@
-import { Box, Button, Card, Dialog, List, Typography } from "@mui/material";
+import { useState, useEffect } from "react";
+import { Box, Button, List, Typography } from "@mui/material";
 import RemovedTaskItem from "../../components/RemovedTaskItem/RemovedTaskItem";
 import NoTasksNotice from "../../components/NoTasksNotice/NoTasksNotice";
-import { useState } from "react";
+import DeleteConfirm from "../../components/DeleteConfirm/DeleteConfirm";
 
-export default function TrashPage({ taskInTrash, setTaskInTrash, setTasks }) {
+export default function TrashPage({ tasksInTrash, setTaskInTrash, setTasks }) {
   const [openModalConfirm, setOpenModalConfirm] = useState(false);
   const handleOpenModalConfirm = () => setOpenModalConfirm(true);
   const handleCloseModalConfirm = () => setOpenModalConfirm(false);
@@ -13,57 +14,60 @@ export default function TrashPage({ taskInTrash, setTaskInTrash, setTasks }) {
     handleCloseModalConfirm();
   };
 
-  return (
-    <>
-      <Box sx={{ p: "32px 0" }}>
-        {taskInTrash.length === 0 ? null : (
-          <Button variant='contained' onClick={handleOpenModalConfirm}>
-            Clear trash
-          </Button>
-        )}
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTaskInTrash((prev) => {
+        const updateTasks = prev.filter((t) => t.deleteAt > Date.now());
+        localStorage.setItem("tasksInTrash", JSON.stringify(updateTasks));
+        return updateTasks;
+      });
+    }, 60000);
 
-        {taskInTrash.length === 0 ? (
-          <NoTasksNotice message='Trash is empty 🗑️' />
-        ) : (
-          <List
-            disablePadding
-            sx={{ mt: 4, display: "flex", gap: 2, flexWrap: "wrap" }}
-          >
-            {taskInTrash.map(
-              ({ id, title, description, complete, bgColor, deleteAt }) => (
-                <RemovedTaskItem
-                  key={id}
-                  id={id}
-                  title={title}
-                  description={description}
-                  complete={complete}
-                  bgColor={bgColor}
-                  taskInTrash={taskInTrash}
-                  setTaskInTrash={setTaskInTrash}
-                  setTasks={setTasks}
-                  deleteAt={deleteAt}
-                />
-              )
-            )}
-          </List>
-        )}
-      </Box>
-      <Dialog open={openModalConfirm} onClose={handleCloseModalConfirm}>
-        <Card sx={{ p: 1, width: "300px" }}>
-          <Typography
-            sx={{ textAlign: "center", fontSize: "18px", fontWeight: "500" }}
-          >
-            Do you want to clear the trash and delete {taskInTrash.length} tasks
-            forever?
-          </Typography>
-          <Box
-            sx={{ mt: 2, display: "flex", justifyContent: "center", gap: 1 }}
-          >
-            <Button onClick={handleCloseModalConfirm}>Cancel</Button>
-            <Button onClick={clearTrash}>Delete</Button>
-          </Box>
-        </Card>
-      </Dialog>
-    </>
+    return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <Box sx={{ p: "24px 0" }}>
+      {tasksInTrash.length === 0 ? null : (
+        <Button variant='contained' onClick={handleOpenModalConfirm}>
+          Clear trash
+        </Button>
+      )}
+      <Typography sx={{ mt: 2, fontWeight: 500 }}>
+        Total: {tasksInTrash.length}
+      </Typography>
+
+      {tasksInTrash.length === 0 ? (
+        <NoTasksNotice message='Trash is empty.' />
+      ) : (
+        <List
+          disablePadding
+          sx={{ mt: 4, display: "flex", gap: 2, flexWrap: "wrap" }}
+        >
+          {tasksInTrash.map(
+            ({ id, title, description, complete, bgColor, deleteAt }) => (
+              <RemovedTaskItem
+                key={id}
+                id={id}
+                title={title}
+                description={description}
+                complete={complete}
+                bgColor={bgColor}
+                taskInTrash={tasksInTrash}
+                setTaskInTrash={setTaskInTrash}
+                setTasks={setTasks}
+                deleteAt={deleteAt}
+              />
+            )
+          )}
+        </List>
+      )}
+      <DeleteConfirm
+        open={openModalConfirm}
+        onClose={handleCloseModalConfirm}
+        clearTrash={clearTrash}
+      />
+    </Box>
   );
 }

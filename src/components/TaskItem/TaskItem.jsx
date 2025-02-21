@@ -33,13 +33,16 @@ export default function TaskItem({
   return (
     <ListItem
       disablePadding
-      sx={{ position: "relative", flexBasis: "calc(1587px/5)" }}
+      sx={{
+        position: "relative",
+        flexBasis: "calc((1652px - 64px) / 5)",
+      }}
     >
       <Card
         onClick={handleOpenModal}
         variant='outlined'
         sx={{
-          width: "calc(1587px/5)",
+          width: "calc((1652px - 64px) / 5)",
           height: 140,
           bgcolor: bgColor,
           padding: 2,

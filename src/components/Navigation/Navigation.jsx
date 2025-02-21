@@ -10,13 +10,14 @@ import {
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import Logo from "../Logo/Logo";
+import SearchForm from "../SearchForm/SearchForm";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
-export default function Navigation() {
+export default function Navigation({ query, handleSearch }) {
   return (
-    <Drawer variant='permanent' sx={{ width: 180 }}>
-      <Box sx={{ width: 180 }}>
+    <Drawer variant='permanent' sx={{ width: 220 }}>
+      <Box sx={{ width: 220 }}>
         <Logo />
         <Divider variant='middle' />
         <Box>
@@ -57,6 +58,8 @@ export default function Navigation() {
             </ListItem>
           </List>
         </Box>
+        <Divider variant='middle' sx={{ mt: 4 }} />
+        <SearchForm query={query} handleSearch={handleSearch} />
       </Box>
     </Drawer>
   );

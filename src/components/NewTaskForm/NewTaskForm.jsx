@@ -22,7 +22,6 @@ export default function NewTaskForm({
 
     setTasks((prev) => {
       return [
-        ...prev,
         {
           id: nanoid(),
           title: e.target.elements.title.value,
@@ -30,6 +29,7 @@ export default function NewTaskForm({
           complete: false,
           bgColor: bgColorSelected,
         },
+        ...prev,
       ];
     });
 

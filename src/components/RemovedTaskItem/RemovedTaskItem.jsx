@@ -1,7 +1,6 @@
 import { Box, Card, IconButton, ListItem, Typography } from "@mui/material";
 import RestoreFromTrashIcon from "@mui/icons-material/RestoreFromTrash";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { useEffect } from "react";
 
 export default function RemovedTaskItem({
   id,
@@ -14,22 +13,7 @@ export default function RemovedTaskItem({
   setTasks,
   deleteAt,
 }) {
-  const daysToAutoDelete = Math.floor(
-    (deleteAt - Date.now()) / 3600 / 1000 / 24
-  );
-
-  useEffect(() => {
-    const intervalTime = 1000 * 60 * 60;
-
-    const intervalId = setInterval(() => {
-      setTaskInTrash((prev) => {
-        return prev.filter((t) => t.deleteAt > Date.now());
-      });
-    }, intervalTime);
-
-    return () => clearInterval(intervalId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const timeToDelete = Math.floor((deleteAt - Date.now()) / 60000);
 
   const removeTaskForever = () => {
     setTaskInTrash((prev) => {
@@ -45,7 +29,7 @@ export default function RemovedTaskItem({
     });
 
     setTasks((prev) => {
-      return [...prev, deletedTask];
+      return [deletedTask, ...prev];
     });
   };
 
@@ -76,17 +60,29 @@ export default function RemovedTaskItem({
             position: "absolute",
             top: "50%",
             left: "50%",
+            width: "100%",
+            height: "100%",
             transform: "translate(-50%, -50%)",
+            backgroundColor: bgColor,
             opacity: 0,
             transition: "opacity 0.3s ease",
           }}
         >
-          <IconButton onClick={restoreTask}>
-            <RestoreFromTrashIcon />
-          </IconButton>
-          <IconButton onClick={removeTaskForever}>
-            <DeleteForeverIcon />
-          </IconButton>
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            <IconButton onClick={restoreTask}>
+              <RestoreFromTrashIcon />
+            </IconButton>
+            <IconButton onClick={removeTaskForever}>
+              <DeleteForeverIcon />
+            </IconButton>
+          </Box>
         </Box>
         <Typography
           variant='caption'
@@ -99,9 +95,7 @@ export default function RemovedTaskItem({
             backgroundColor: "#ff7961",
           }}
         >
-          {daysToAutoDelete > 1
-            ? `${daysToAutoDelete} days left`
-            : "Delete today"}
+          {`${timeToDelete} min left`}
         </Typography>
         <Typography
           sx={{

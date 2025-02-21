@@ -41,7 +41,7 @@ export default function TaskModal({
               ...task,
               title: editTaskText.title,
               description: editTaskText.description,
-              complete: editTaskText.title && editTaskText.description,
+              complete: false,
             }
           : task
       );
