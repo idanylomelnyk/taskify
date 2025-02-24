@@ -9,6 +9,7 @@ export default function HomePage({ tasks, setTasks, setTaskInTrash }) {
   const [openNewTaskModal, setOpenNewTaskModal] = useState(false);
   const [bgColorSelected, setBgColorSelected] = useState("#fff");
   const [radioValue, setRadioValue] = useState("All");
+  const [checkedId, setCheckedId] = useState([]);
 
   const handleOpenNewTaskModal = () => setOpenNewTaskModal(true);
   const handleCloseNewTaskModal = () => {
@@ -24,15 +25,38 @@ export default function HomePage({ tasks, setTasks, setTaskInTrash }) {
     });
   };
 
+  const removeChecked = () => {
+    for (const id of checkedId) {
+      setTasks((prev) => {
+        return prev.filter((task) => task.id !== id);
+      });
+
+      const taskDelete = tasks.find((t) => t.id === id);
+      const deleteTime = Date.now() + 60000 * 5;
+
+      setTaskInTrash((prev) => {
+        return [{ ...taskDelete, deleteAt: deleteTime }, ...prev];
+      });
+    }
+    setCheckedId([]);
+  };
+
   return (
     <Box component='main' sx={{ padding: "24px 0" }}>
       <Button
         aria-label='open-new-task-form'
         variant='contained'
         onClick={handleOpenNewTaskModal}
+        sx={{ mr: 2 }}
       >
         New task
       </Button>
+
+      {checkedId.length > 0 && (
+        <Button variant='contained' onClick={removeChecked}>
+          Delete checked: {checkedId.length}
+        </Button>
+      )}
 
       <TasksFilter
         radioValue={radioValue}
@@ -53,6 +77,8 @@ export default function HomePage({ tasks, setTasks, setTaskInTrash }) {
           tasks={tasksFilter()}
           setTasks={setTasks}
           setTaskInTrash={setTaskInTrash}
+          checkedId={checkedId}
+          setCheckedId={setCheckedId}
         />
       )}
     </Box>

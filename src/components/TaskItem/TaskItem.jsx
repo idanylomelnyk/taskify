@@ -1,7 +1,9 @@
-import { Card, ListItem, Typography } from "@mui/material";
+import { Card, Checkbox, ListItem, Typography } from "@mui/material";
 import TaskActionsButton from "../TaskActionsButton/TaskActionsButton";
 import TaskModal from "../TaskModal/TaskModal";
 import { useState } from "react";
+import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 export default function TaskItem({
   id,
@@ -12,6 +14,7 @@ export default function TaskItem({
   tasks,
   setTasks,
   setTaskInTrash,
+  setCheckedId,
 }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
@@ -28,6 +31,21 @@ export default function TaskItem({
 
   const editingTask = () => {
     setEditTaskText({ title, description });
+  };
+
+  const [checked, setChecked] = useState(false);
+
+  const handleChecked = (e) => {
+    setChecked(e.target.checked);
+  };
+
+  const selectedTasks = (e) => {
+    e.stopPropagation();
+    setCheckedId((prev) => {
+      return prev.includes(id)
+        ? prev.filter((key) => key !== id)
+        : [...prev, id];
+    });
   };
 
   return (
@@ -52,8 +70,32 @@ export default function TaskItem({
             boxShadow: 2,
           },
           "&:hover .moreVert": { opacity: 1 },
+          "&:hover .checkbox": { opacity: 1 },
         }}
       >
+        <Checkbox
+          checked={checked}
+          onChange={handleChecked}
+          onClick={selectedTasks}
+          className='checkbox'
+          icon={
+            <RadioButtonUncheckedIcon
+              sx={{
+                backgroundColor: bgColor,
+                borderRadius: "50%",
+              }}
+            />
+          }
+          checkedIcon={<CheckCircleIcon sx={{ color: "#000" }} />}
+          sx={{
+            position: "absolute",
+            top: -16,
+            left: -16,
+
+            opacity: checked ? 1 : 0,
+            transition: "opacity 0.3s ease",
+          }}
+        />
         <TaskActionsButton
           id={id}
           title={title}

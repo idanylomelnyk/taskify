@@ -1,7 +1,13 @@
 import { List } from "@mui/material";
 import TaskItem from "../TaskItem/TaskItem";
 
-export default function TaskList({ tasks, setTasks, setTaskInTrash }) {
+export default function TaskList({
+  tasks,
+  setTasks,
+  setTaskInTrash,
+  checkedId,
+  setCheckedId,
+}) {
   return (
     <List
       disablePadding
@@ -23,6 +29,8 @@ export default function TaskList({ tasks, setTasks, setTaskInTrash }) {
           tasks={tasks}
           setTasks={setTasks}
           setTaskInTrash={setTaskInTrash}
+          checkedId={checkedId}
+          setCheckedId={setCheckedId}
         />
       ))}
     </List>
