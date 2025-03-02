@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Box, Button, List, Typography } from "@mui/material";
 import RemovedTaskItem from "../../components/RemovedTaskItem/RemovedTaskItem";
 import NoTasksNotice from "../../components/NoTasksNotice/NoTasksNotice";
@@ -29,14 +29,17 @@ export default function TrashPage({ tasksInTrash, setTaskInTrash, setTasks }) {
 
   return (
     <Box sx={{ p: "24px 0" }}>
-      {tasksInTrash.length === 0 ? null : (
-        <Button variant='contained' onClick={handleOpenModalConfirm}>
-          Clear trash
-        </Button>
+      {tasksInTrash.length > 0 && (
+        <Box>
+          <Button variant='contained' onClick={handleOpenModalConfirm}>
+            Clear trash
+          </Button>
+
+          <Typography sx={{ mt: 2, fontWeight: 500 }}>
+            Total: {tasksInTrash.length}
+          </Typography>
+        </Box>
       )}
-      <Typography sx={{ mt: 2, fontWeight: 500 }}>
-        Total: {tasksInTrash.length}
-      </Typography>
 
       {tasksInTrash.length === 0 ? (
         <NoTasksNotice message='Trash is empty.' />

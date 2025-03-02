@@ -100,6 +100,7 @@ export default function TaskItem({
           setIsTaskEditing={setIsTaskEditing}
           editingTask={editingTask}
           setTaskInTrash={setTaskInTrash}
+          setCheckedId={setCheckedId}
         />
         <Typography
           sx={{

@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import {
   Drawer,
   Box,
@@ -7,20 +9,30 @@ import {
   ListItemText,
   ListItemButton,
   Divider,
+  Button,
 } from "@mui/material";
-import { NavLink } from "react-router-dom";
 import Logo from "../Logo/Logo";
 import SearchForm from "../SearchForm/SearchForm";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import NewTaskForm from "../NewTaskForm/NewTaskForm";
 
-export default function Navigation({ query, handleSearch }) {
+export default function Navigation({ query, handleSearch, setTasks }) {
+  const [openNewTaskModal, setOpenNewTaskModal] = useState(false);
+  const [bgColorSelected, setBgColorSelected] = useState("#fff");
+  const handleOpenNewTaskModal = () => setOpenNewTaskModal(true);
+  const handleCloseNewTaskModal = () => {
+    setOpenNewTaskModal(false);
+    setBgColorSelected("#fff");
+  };
+
   return (
     <Drawer variant='permanent' sx={{ width: 220 }}>
       <Box sx={{ width: 220 }}>
         <Logo />
         <Divider variant='middle' />
-        <Box>
+
+        <Box sx={{ mt: 2 }}>
           <List>
             <ListItem disablePadding>
               <NavLink
@@ -58,8 +70,32 @@ export default function Navigation({ query, handleSearch }) {
             </ListItem>
           </List>
         </Box>
-        <Divider variant='middle' sx={{ mt: 4 }} />
-        <SearchForm query={query} handleSearch={handleSearch} />
+        <Divider variant='middle' sx={{ mt: 2 }} />
+        <Box>
+          <SearchForm query={query} handleSearch={handleSearch} />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Button
+              aria-label='open-new-task-form'
+              variant='outlined'
+              onClick={handleOpenNewTaskModal}
+              sx={{ mt: 2 }}
+            >
+              Create new task
+            </Button>
+            <NewTaskForm
+              open={openNewTaskModal}
+              onClose={handleCloseNewTaskModal}
+              setTasks={setTasks}
+              bgColorSelected={bgColorSelected}
+              setBgColorSelected={setBgColorSelected}
+            />
+          </Box>
+        </Box>
       </Box>
     </Drawer>
   );

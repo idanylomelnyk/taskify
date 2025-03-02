@@ -33,7 +33,11 @@ export default function App() {
     <>
       <CssBaseline />
       <Box sx={{ display: "flex" }}>
-        <Navigation query={query} handleSearch={handleSearch} />
+        <Navigation
+          query={query}
+          handleSearch={handleSearch}
+          setTasks={setTasks}
+        />
         <Container maxWidth={false}>
           <Routes>
             <Route

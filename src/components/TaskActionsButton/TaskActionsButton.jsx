@@ -13,6 +13,7 @@ export default function TaskActionsButton({
   editingTask,
   isTaskEditing,
   setTaskInTrash,
+  setCheckedId,
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -36,6 +37,8 @@ export default function TaskActionsButton({
     setTaskInTrash((prev) => {
       return [{ ...taskDelete, deleteAt: deleteTime }, ...prev];
     });
+
+    setCheckedId([]);
   };
 
   const toggleTask = (bool) => {

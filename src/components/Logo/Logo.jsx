@@ -3,7 +3,7 @@ import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 
 export default function Logo() {
   return (
-    <Box sx={{ p: "32px 48px" }}>
+    <Box sx={{ p: "24px 48px" }}>
       <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
         <Typography variant='h6' sx={{ textTransform: "uppercase" }}>
           Taskify

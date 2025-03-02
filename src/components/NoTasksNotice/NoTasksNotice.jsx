@@ -5,7 +5,7 @@ export default function NoTasksNotice({ message }) {
     <>
       <Typography
         sx={{
-          mt: 20,
+          mt: "calc(50vh - 50px)",
           textAlign: "center",
           fontSize: 22,
           fontWeight: 500,
