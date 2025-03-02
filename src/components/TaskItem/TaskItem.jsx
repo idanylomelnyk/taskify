@@ -14,33 +14,27 @@ export default function TaskItem({
   tasks,
   setTasks,
   setTaskInTrash,
+  checkedId,
   setCheckedId,
 }) {
   const [openModal, setOpenModal] = useState(false);
-  const handleOpenModal = () => setOpenModal(true);
-  const handleCloseModal = () => {
-    setOpenModal(false);
-    setIsTaskEditing(false);
-  };
-
   const [isTaskEditing, setIsTaskEditing] = useState(false);
   const [editTaskText, setEditTaskText] = useState({
     title: "",
     description: "",
   });
 
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setIsTaskEditing(false);
+  };
+
   const editingTask = () => {
     setEditTaskText({ title, description });
   };
 
-  const [checked, setChecked] = useState(false);
-
-  const handleChecked = (e) => {
-    setChecked(e.target.checked);
-  };
-
-  const selectedTasks = (e) => {
-    e.stopPropagation();
+  const selectedTasks = () => {
     setCheckedId((prev) => {
       return prev.includes(id)
         ? prev.filter((key) => key !== id)
@@ -74,9 +68,9 @@ export default function TaskItem({
         }}
       >
         <Checkbox
-          checked={checked}
-          onChange={handleChecked}
-          onClick={selectedTasks}
+          checked={checkedId.includes(id)}
+          onChange={selectedTasks}
+          onClick={(e) => e.stopPropagation()}
           className='checkbox'
           icon={
             <RadioButtonUncheckedIcon
@@ -91,8 +85,7 @@ export default function TaskItem({
             position: "absolute",
             top: -16,
             left: -16,
-
-            opacity: checked ? 1 : 0,
+            opacity: checkedId.includes(id) ? 1 : 0,
             transition: "opacity 0.3s ease",
           }}
         />

@@ -41,22 +41,48 @@ export default function HomePage({ tasks, setTasks, setTaskInTrash }) {
     setCheckedId([]);
   };
 
+  const handleCheckedAll = () => {
+    setCheckedId([]);
+    for (const task of tasks) {
+      setCheckedId((prev) => {
+        return [...prev, task.id];
+      });
+    }
+  };
+
+  const handleDeselectAll = () => {
+    setCheckedId([]);
+  };
+
   return (
     <Box component='main' sx={{ padding: "24px 0" }}>
-      <Button
-        aria-label='open-new-task-form'
-        variant='contained'
-        onClick={handleOpenNewTaskModal}
-        sx={{ mr: 2 }}
-      >
-        New task
-      </Button>
-
-      {checkedId.length > 0 && (
-        <Button variant='contained' onClick={removeChecked}>
-          Delete checked: {checkedId.length}
+      <Box sx={{ display: "flex" }}>
+        <Button
+          aria-label='open-new-task-form'
+          variant='contained'
+          onClick={handleOpenNewTaskModal}
+          sx={{ mr: 2 }}
+        >
+          New task
         </Button>
-      )}
+
+        {checkedId.length > 0 && (
+          <Box sx={{ display: "flex", gap: 2 }}>
+            {tasks.length === checkedId.length ? (
+              <Button variant='contained' onClick={handleDeselectAll}>
+                Deselect all
+              </Button>
+            ) : (
+              <Button variant='contained' onClick={handleCheckedAll}>
+                Select all
+              </Button>
+            )}
+            <Button variant='contained' onClick={removeChecked}>
+              Delete checked
+            </Button>
+          </Box>
+        )}
+      </Box>
 
       <TasksFilter
         radioValue={radioValue}
