@@ -13,7 +13,7 @@ export default function RemovedTaskItem({
   setTasks,
   deleteAt,
 }) {
-  const timeToDelete = Math.floor((deleteAt - Date.now()) / 60000);
+  const timeToDelete = Math.ceil((deleteAt - Date.now()) / 60000);
 
   const removeTaskForever = () => {
     setTaskInTrash((prev) => {
@@ -95,7 +95,7 @@ export default function RemovedTaskItem({
             backgroundColor: "#ff7961",
           }}
         >
-          {`${timeToDelete} min left`}
+          {timeToDelete < 1 ? "Few seconds" : `${timeToDelete} min left`}
         </Typography>
         <Typography
           sx={{

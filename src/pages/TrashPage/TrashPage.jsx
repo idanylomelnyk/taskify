@@ -28,16 +28,23 @@ export default function TrashPage({ tasksInTrash, setTaskInTrash, setTasks }) {
   }, []);
 
   return (
-    <Box sx={{ p: "24px 0" }}>
+    <Box>
       {tasksInTrash.length > 0 && (
-        <Box>
-          <Button variant='contained' onClick={handleOpenModalConfirm}>
-            Clear trash
-          </Button>
-
+        <Box
+          sx={{
+            mt: 2,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <Typography sx={{ mt: 2, fontWeight: 500 }}>
             Total: {tasksInTrash.length}
           </Typography>
+
+          <Button variant='contained' onClick={handleOpenModalConfirm}>
+            Clear trash
+          </Button>
         </Box>
       )}
 

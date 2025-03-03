@@ -50,9 +50,10 @@ export default function HomePage({ tasks, setTasks, setTaskInTrash }) {
       {tasks.length > 0 && (
         <Box
           sx={{
+            mt: 2,
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "center",
+            alignItems: "flex-start",
           }}
         >
           <TasksFilter

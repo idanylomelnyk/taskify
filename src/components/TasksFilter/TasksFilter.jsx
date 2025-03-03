@@ -17,7 +17,7 @@ export default function TasksFilter({
   };
 
   return (
-    <Box sx={{ mt: 2 }}>
+    <Box>
       <FormControl>
         <RadioGroup
           row
