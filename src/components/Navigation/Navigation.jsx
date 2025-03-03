@@ -16,6 +16,8 @@ import SearchForm from "../SearchForm/SearchForm";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import NewTaskForm from "../NewTaskForm/NewTaskForm";
+import data from "../../test-tasks.json";
+import { nanoid } from "nanoid";
 
 export default function Navigation({ query, handleSearch, setTasks }) {
   const [openNewTaskModal, setOpenNewTaskModal] = useState(false);
@@ -25,6 +27,9 @@ export default function Navigation({ query, handleSearch, setTasks }) {
     setOpenNewTaskModal(false);
     setBgColorSelected("#fff");
   };
+
+  const createDemoTasks = () =>
+    setTasks(data.map((task) => ({ ...task, id: nanoid() })));
 
   return (
     <Drawer variant='permanent' sx={{ width: 220 }}>
@@ -73,19 +78,20 @@ export default function Navigation({ query, handleSearch, setTasks }) {
         <Divider variant='middle' sx={{ mt: 2 }} />
         <Box>
           <SearchForm query={query} handleSearch={handleSearch} />
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
+          <Box sx={{ mt: 2, display: "flex", justifyContent: "space-evenly" }}>
             <Button
               aria-label='open-new-task-form'
               variant='outlined'
               onClick={handleOpenNewTaskModal}
-              sx={{ mt: 2 }}
             >
-              Create new task
+              New task
+            </Button>
+            <Button
+              aria-label='create-demo-tasks'
+              variant='outlined'
+              onClick={createDemoTasks}
+            >
+              Demo
             </Button>
             <NewTaskForm
               open={openNewTaskModal}

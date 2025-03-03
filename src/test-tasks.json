@@ -1,0 +1,142 @@
+[
+  {
+    "id": 1,
+    "title": "Buy groceries",
+    "description": "Milk, eggs, bread, and fruits.",
+    "complete": false,
+    "bgColor": "#fffde7"
+  },
+  {
+    "id": 2,
+    "title": "Finish project report",
+    "description": "Complete the summary and add references.",
+    "complete": false,
+    "bgColor": "#fff"
+  },
+  {
+    "id": 3,
+    "title": "Workout",
+    "description": "Go for a 5km run and stretch afterwards.",
+    "complete": true,
+    "bgColor": "#fffde7"
+  },
+  {
+    "id": 4,
+    "title": "Call Mom",
+    "description": "Catch up and check how she's doing.",
+    "complete": false,
+    "bgColor": "#e0f2f1"
+  },
+  {
+    "id": 5,
+    "title": "Plan weekend trip",
+    "description": "Find places to visit and book accommodation.",
+    "complete": false,
+    "bgColor": "#e3f2fd"
+  },
+  {
+    "id": 6,
+    "title": "Read a book",
+    "description": "Finish the last 3 chapters of 'Atomic Habits'.",
+    "complete": true,
+    "bgColor": "#fff"
+  },
+  {
+    "id": 7,
+    "title": "Fix bug in code",
+    "description": "Resolve the issue with API response timeout.",
+    "complete": false,
+    "bgColor": "#e3f2fd"
+  },
+  {
+    "id": 8,
+    "title": "Water plants",
+    "description": "Check soil moisture and water accordingly.",
+    "complete": true,
+    "bgColor": "#fff"
+  },
+  {
+    "id": 9,
+    "title": "Update resume",
+    "description": "Add recent project experience and skills.",
+    "complete": false,
+    "bgColor": "#ffebee"
+  },
+  {
+    "id": 10,
+    "title": "Reply to emails",
+    "description": "Respond to pending work emails.",
+    "complete": false,
+    "bgColor": "#fffde7"
+  },
+  {
+    "id": 11,
+    "title": "Cook dinner",
+    "description": "Try making homemade pasta.",
+    "complete": false,
+    "bgColor": "#e0f2f1"
+  },
+  {
+    "id": 12,
+    "title": "Meditate",
+    "description": "Practice mindfulness for 10 minutes.",
+    "complete": true,
+    "bgColor": "#e3f2fd"
+  },
+  {
+    "id": 13,
+    "title": "Schedule dentist appointment",
+    "description": "Check available slots for next week.",
+    "complete": false,
+    "bgColor": "#fff"
+  },
+  {
+    "id": 14,
+    "title": "Pay bills",
+    "description": "Electricity, internet, and phone bill.",
+    "complete": true,
+    "bgColor": "#fffde7"
+  },
+  {
+    "id": 15,
+    "title": "Write blog post",
+    "description": "Share insights on latest tech trends.",
+    "complete": false,
+    "bgColor": "#fff"
+  },
+  {
+    "id": 16,
+    "title": "Organize workspace",
+    "description": "Clean desk and sort paperwork.",
+    "complete": true,
+    "bgColor": "#e0f2f1"
+  },
+  {
+    "id": 17,
+    "title": "Practice guitar",
+    "description": "Learn a new song.",
+    "complete": false,
+    "bgColor": "#ffebee"
+  },
+  {
+    "id": 18,
+    "title": "Plan monthly budget",
+    "description": "Review expenses and set savings goal.",
+    "complete": false,
+    "bgColor": "#e3f2fd"
+  },
+  {
+    "id": 19,
+    "title": "Attend webinar",
+    "description": "Topic: Improving productivity at work.",
+    "complete": true,
+    "bgColor": "#fff"
+  },
+  {
+    "id": 20,
+    "title": "Do laundry",
+    "description": "Wash and fold clothes.",
+    "complete": false,
+    "bgColor": "#ffebee"
+  }
+]
